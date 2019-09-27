@@ -36,17 +36,6 @@ class SinglyLinkedList {
         }
 };
 
-void print_singly_linked_list(SinglyLinkedListNode* node, string sep, ofstream& fout) {
-    while (node) {
-        fout << node->data;
-
-        node = node->next;
-
-        if (node) {
-            fout << sep;
-        }
-    }
-}
 
 void free_singly_linked_list(SinglyLinkedListNode* node) {
     while (node) {
@@ -57,7 +46,7 @@ void free_singly_linked_list(SinglyLinkedListNode* node) {
     }
 }
 
-// Complete the insertNodeAtPosition function below.
+// Complete the printLinkedList function below.
 
 /*
  * For your reference:
@@ -68,28 +57,19 @@ void free_singly_linked_list(SinglyLinkedListNode* node) {
  * };
  *
  */
-SinglyLinkedListNode* insertNodeAtPosition(SinglyLinkedListNode* head, int data, int position) {
-    SinglyLinkedListNode *new_node;
-    new_node = new SinglyLinkedListNode(data);
-    int cnt = 0;
-    for(SinglyLinkedListNode *ptr = head; ptr != nullptr; ptr = ptr -> next)
+void printLinkedList(SinglyLinkedListNode* head) {
+    if(head -> data != NULL)
     {
-        cnt++;
-        if(cnt == position)
+        for(; head; head = head -> next)
         {
-            new_node -> next = ptr -> next;
-            new_node -> data = data;
-            ptr -> next = new_node;
-            new_node -> next = ptr -> next -> next;
+            cout << head -> data << "\n";
         }
     }
-    return head;
+
 }
 
 int main()
 {
-    ofstream fout(getenv("OUTPUT_PATH"));
-
     SinglyLinkedList* llist = new SinglyLinkedList();
 
     int llist_count;
@@ -104,22 +84,7 @@ int main()
         llist->insert_node(llist_item);
     }
 
-    int data;
-    cin >> data;
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
-    int position;
-    cin >> position;
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
-    SinglyLinkedListNode* llist_head = insertNodeAtPosition(llist->head, data, position);
-
-    print_singly_linked_list(llist_head, " ", fout);
-    fout << "\n";
-
-    free_singly_linked_list(llist_head);
-
-    fout.close();
+    printLinkedList(llist->head);
 
     return 0;
 }
